@@ -18,10 +18,10 @@ class Solution(object):
 
 
 main = Solution()
-# print(main.maximalRectangle([
-#     ["1", "0", "1", "0", "0"],
-#     ["1", "0", "1", "1", "1"],
-#     ["1", "1", "1", "1", "1"],
-#     ["1", "0", "0", "1", "0"]
-# ]))
+print(main.maximalRectangle([
+    ["1", "0", "1", "0", "0"],
+    ["1", "0", "1", "1", "1"],
+    ["1", "1", "1", "1", "1"],
+    ["1", "0", "0", "1", "0"]
+]))
 # print(main.maximalRectangle([["1"]]))
