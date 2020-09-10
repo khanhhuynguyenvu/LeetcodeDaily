@@ -1,0 +1,6 @@
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock/,dp,ez,93.676
+https://leetcode.com/problems/decode-ways/,dp,med,93.3571
+https://leetcode.com/problems/longest-palindromic-substring/,dp,med,100
+https://leetcode.com/problems/maximal-rectangle/,dp,hard,84.5073
+https://leetcode.com/problems/maximum-subarray/,dp,ez,100
+https://leetcode.com/problems/word-break/,dp,med,87.3144
