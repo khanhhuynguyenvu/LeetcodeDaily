@@ -28,7 +28,7 @@ class Solution(object):
 
 
 main = Solution()
-print(main.maximalRectangle(
+print(main.maximalSquare(
     [["1", "0", "0", "1", "1", "0", "1", "1"],
      ["1", "0", "0", "0", "0", "1", "0", "0"],
      ["0", "1", "1", "1", "0", "0", "1", "1"],
