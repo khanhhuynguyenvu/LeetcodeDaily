@@ -1,3 +1,5 @@
+from collections import Counter
+
 import mysql.connector
 
 from Manage.Manage import to_processed_log
@@ -78,11 +80,23 @@ def insert_tb_problems(db, vals):
         print("[INSERT ERROR] {} ".format(e.__str__()))
 
 
-name_db = "leetcode_daily"
-my_db = init_db(name_db)
+def select_tb_problems(cursor, name, where=False, field="", cmpr="", val=""):
+    if not where:
+        cursor.execute("SELECT link,tags FROM {}".format(name))
+    else:
+        cursor.execute("SELECT link,tags,frequency FROM {} WHERE {} {} {}".format(name, field, cmpr, val))
+    for line in cursor.fetchall():
+        print(line)
+
+
+db_name = "leetcode_daily"
+tb_name = "problems"
+my_db = init_db(db_name)
 my_cursor = my_db.cursor()
 # drop_tb(my_cursor, "problems")
 # create_tb_problems(my_cursor)
-vals = to_processed_log()
-insert_tb_problems(my_db, vals)
-del_row_tb_problems(my_db, "id", ">", "0")
+# vals = to_processed_log()
+# insert_tb_problems(my_db, vals)
+# del_row_tb_problems(my_db, "id", ">", "0")
+x = "'%dp%'"
+select_tb_problems(my_cursor, tb_name, True, "tags", "LIKE", x)
