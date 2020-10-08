@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,9 +29,20 @@ public class ArrayOverview {
 //            System.out.print(num + " ");
 //        }
 //        P3: Find two numbers that add up to n
-        int[] arr = new int[]{1, 21, 3, 14, 5, 60, 7, 6};
-        int[] ans_3 = findSum(arr, 27);
-        System.out.println(ans_3[0] + " " + ans_3[1]);
+//        int[] arr = new int[]{1, 21, 3, 14, 5, 60, 7, 6};
+//        int[] ans_3 = findSum(arr, 27);
+//        System.out.println(ans_3[0] + " " + ans_3[1]);
+//        P7: Find Second Maximum Value in an Array
+//        int[] givens = new int[]{9,2,3,6};
+//        System.out.println(findSecondMaximum(givens));
+//        P8: Right Rotate the Array by One Index
+//        int[] givens = new int[]{1, 2, 3, 4, 5};
+//        rotateArray(givens);
+//        P9: Re-arrange Positive & Negative Values
+//        int[] givens = new int[]{10, -1, 20, 4, 5, -9, -6};
+//        reArrange(givens);
+        int[] givens = new int[]{1, 2, 3, 4, 5};
+        maxMin(givens);
     }
 
     // P1
@@ -84,5 +96,56 @@ public class ArrayOverview {
             }
         }
         return ans;
+    }
+
+    // P7
+    private static int findSecondMaximum(int[] arr) {
+        if (arr.length < 2) return arr[0];
+        for (int i = 0; i < 2; i++) {
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[i] < arr[j]) {
+                    int temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+        return arr[1];
+    }
+
+    //P8
+    private static void rotateArray(int[] arr) {
+        int last = arr[arr.length - 1];
+        for (int i = arr.length - 1; i > 0; i--) {
+            arr[i] = arr[i - 1];
+        }
+        arr[0] = last;
+    }
+
+    //P9
+    private static void reArrange(int[] arr) {
+        int l = 0;
+        for (int r = 1; r < arr.length; r++) {
+            if (arr[l] >= 0 && arr[r] < 0) {
+                int tmp = arr[r];
+                arr[r] = arr[l];
+                arr[l] = tmp;
+                l++;
+            }
+        }
+    }
+
+    //P10
+    private static void maxMin(int[] arr) {
+        int[] ans = new int[arr.length];
+        for (int i = 0, down = arr.length - 1; i < arr.length; i += 2) {
+            ans[i] = arr[down--];
+        }
+        for (int i = 1, up = 0; i < arr.length; i += 2) {
+            ans[i] = arr[up++];
+        }
+        for (int ele : ans) {
+            System.out.print(ele + " ");
+        }
     }
 }
