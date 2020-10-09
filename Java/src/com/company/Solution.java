@@ -1,57 +1,35 @@
 package com.company;
 
-import java.util.*;
-
 public class Solution {
-    public static String minWindow(String s, String t) {
-        Map<Character, Integer> cnt_t = new HashMap<>();
-        Map<Character, Integer> cnt_curr = new HashMap<>();
-        for (char c : t.toCharArray()) {
-            cnt_t.merge(c, 1, Integer::sum);
+    public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int n1 = nums1.length;
+        int n2 = nums2.length;
+        int n = n1 + n2;
+        int[] nums = new int[n];
+        int l = 0, r = 0, inc = 0;
+        while (l < n1 && r < n2) {
+            if (nums1[l] < nums2[r]) {
+                nums[inc] = nums1[l];
+                l++;
+            } else {
+                nums[inc] = nums2[r];
+                r++;
+            }
+            inc++;
         }
-        Deque<Integer> q = new ArrayDeque<>();
-        int l = 0, r = s.length();
-        s += ".";
-        boolean isValid = false;
-        int key = 0;
-        Set<Character> keySet = new HashSet<>();
-        for (int i = 0; i < s.length(); i++) {
-            while (!q.isEmpty()
-                    && (!cnt_t.containsKey(s.charAt(q.peek()))
-                    || cnt_curr.get(s.charAt(q.peek())) > cnt_t.get(s.charAt(q.peek())))) {
-                if (cnt_curr.containsKey(s.charAt(q.peek()))) {
-                    cnt_curr.merge(s.charAt(q.peek()), -1, Integer::sum);
-                    if (cnt_curr.get(s.charAt(q.peek())) == 0) {
-                        cnt_curr.remove(s.charAt(q.peek()));
-                    }
-                }
-                if (cnt_t.containsKey(s.charAt(q.peek()))
-                        && cnt_curr.getOrDefault(s.charAt(q.peek()), 0) < cnt_t.get(s.charAt(q.peek()))) {
-                    key--;
-                    if (cnt_t.getOrDefault(s.charAt(q.peek()), 0) == 0) keySet.remove(s.charAt(q.peek()));
-                }
-                q.pop();
-            }
-            if (!q.isEmpty()
-                    && key >= cnt_t.keySet().size()
-                    && r - l + 1 > q.size()) {
-                l = q.peek();
-                r = i;
-                isValid = true;
-            }
-            q.add(i);
-            cnt_curr.merge(s.charAt(i), 1, Integer::sum);
-            if (cnt_t.containsKey(s.charAt(i))
-                    && cnt_curr.get(s.charAt(i)) >= cnt_t.get(s.charAt(i))
-                    && !keySet.contains(s.charAt(i))) {
-                key++;
-                keySet.add(s.charAt(i));
-            }
+        while (l < n1) {
+            nums[inc++] = nums1[l++];
         }
-        return isValid ? s.substring(l, r) : "";
+        while (r < n2) {
+            nums[inc++] = nums2[r++];
+        }
+        if (n % 2 != 0) return nums[n / 2];
+        else return (nums[n / 2] * 1.0 + nums[n / 2 - 1] * 1.0) / 2;
     }
 
     public static void main(String[] args) {
-        System.out.println(minWindow("bba", "ab"));
+        int[] nums = new int[]{1, 3};
+        int[] nums2 = new int[]{2};
+        System.out.println(findMedianSortedArrays(nums, nums2));
     }
 }
